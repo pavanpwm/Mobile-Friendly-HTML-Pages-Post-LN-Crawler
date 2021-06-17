@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html dir="ltr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title></title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i');
+html,
+body {
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
+position: relative;
+background-color: #323235;
+-webkit-font-smoothing: antialiased
+}
+
+
+#content {
+max-width: 850px;
+font-size: 16px;
+font-family: 'Merriweather', Georgia, serif;
+text-align: justify;
+line-height: 1.8;
+border-radius: 5px;
+background-color: #fffff0
+}
+
+
+@media (max-width: 925px) {
+#content {
+max-width: auto
+}
+main {
+min-height: 500px
+}
+}
+
+main {
+min-height: 500px;
+padding: 0 5px
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+color: #555;
+padding: 10px;
+margin: 0;
+text-align: center;
+line-height: normal
+}
+
+
+
+
+
+h1 {
+display: none;
+}
+
+
+
+h1:after {
+content: '-';
+margin: 10px 30px;
+height: 2px;
+border-radius: 50%;
+background: #444;
+display: block;
+color: transparent
+}
+
+
+
+.link-group {
+padding: 10px;
+margin: 15px 0;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+
+.link-group a {
+color: #39f;
+text-decoration: none
+}
+
+
+.link-group .btn {
+padding-bottom: 10px;
+color: blue;
+font-family: sans-serif;
+display: inline-block;
+height: 10px;
+text-align: center;
+}
+
+.link-group .btn:hover {
+background: #ececef
+}
+
+.link-group .btn:active {
+box-shadow: 1px 1px 2px #cce inset, 0 0 0 1px #ccc
+}
+
+
+div#readpos {
+border-radius: 10px;
+font-weight: bold;
+font-family: monospace;
+color: #770;
+font-size: 14px;
+padding: 5px 10px;
+background: white;
+box-shadow: 0 0 10px #333, 0 0 0 1px #dde;
+position: fixed;
+bottom: 10px;
+right: 40%;
+user-select: none;
+-webkit-user-drag: none
+margin-left: auto;
+margin-right: auto;
+}
+
+@media print {
+#content {
+margin: 0
+}
+@media print {
+#content {
+margin: 0;
+max-width: none
+}
+@media print {
+#content {
+  margin: 0;
+  max-width: none;
+  box-shadow: none
+}
+.link-group {
+  display: none
+}
+</style>
+
+
+<script>
+
+
+var fontSize = 1;
+
+
+window.onload = function(){
+  var url = new URL(window.location.href);
+  var c = url.searchParams.get("fontSize");
+  if(c != null){
+    fontSize = parseFloat(c);
+    document.getElementById("content").style.fontSize = fontSize + "em";
+  }
+}
+
+function zoomIn() {
+	fontSize += 0.1;
+	document.getElementById("content").style.fontSize = fontSize + "em";
+}
+
+
+function zoomOut() {
+	fontSize -= 0.1;
+	document.getElementById("content").style.fontSize = fontSize + "em";
+}
+
+
+window.addEventListener("click", function(e) {
+    var href = e.target.getAttribute("href");
+    if(href) {
+        location.href = href + "?fontSize=" + fontSize;
+        e.preventDefault();
+    }
+})
+
+
+    window.addEventListener('scroll', function(e) {
+        try {
+            var scroll = window.scrollY;
+            var height = document.body.scrollHeight - window.innerHeight + 10;
+            var percent = Math.round(100.0 * scroll / height);
+            document.getElementById('readpos').innerText = percent + '%';
+        } catch (err) {
+            // ignore
+        }
+    })
+
+
+
+
+
+
+
+</script>
+
+</head><body>
+<input type="button" value="+" onClick="zoomIn()"/>
+<input type="button" value="-" onClick="zoomOut()"/>
